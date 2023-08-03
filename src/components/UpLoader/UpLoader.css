@@ -1,0 +1,12 @@
+.upLoader {
+  height: 300px;
+}
+
+.upLoader__label {
+  display: block;
+  padding: 100px 0;
+}
+
+.upLoader__input {
+  /* display: none; */
+}
