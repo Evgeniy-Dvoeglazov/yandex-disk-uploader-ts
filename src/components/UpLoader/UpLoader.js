@@ -1,5 +1,7 @@
 import './Uploader.css';
 import { useDropzone } from 'react-dropzone';
+import preloader from '../../images/preloader.gif'
+import { useEffect } from 'react';
 
 function UpLoader(props) {
 
@@ -9,7 +11,7 @@ function UpLoader(props) {
     getRootProps,
     getInputProps,
     isDragAccept,
-    isDragReject
+    isDragReject,
   } = useDropzone({
     maxFiles: 2
   });
@@ -21,7 +23,13 @@ function UpLoader(props) {
     </li>
   ));
 
-  function onDrop() {
+  useEffect(() => {
+    if (props.isUploadSuccess && acceptedFiles.length === 0) {
+      props.deleteSuccessInfo();
+    }
+  }, [acceptedFiles.length])
+
+  function onSubmit() {
 
     const data = new FormData();
     acceptedFiles.map((file) => {
@@ -42,16 +50,24 @@ function UpLoader(props) {
         <h2 className='uploader__dropzone-title'>Перетащите файлы в эту область или нажмите, чтобы выбрать их</h2>
         <em className='uploader__dropzone-rule'>(Максимальное количество файлов - 100)</em>
       </div>
-      <button className={`uploader__button ${acceptedFiles.length !== 0 ? '' : 'uploader__button_disabled'}`} type='submit' onClick={onDrop}>Загрузить файлы на Я.Диск</button>
+      {props.isLoading
+        ?
+        <img className='uploader__preloader' src={preloader} alt='иконка загрузки' />
+        :
+        <button className={`uploader__button ${acceptedFiles.length !== 0 ? '' : 'uploader__button_disabled'} ${props.isUploadSuccess ? 'uploader__button_disabled' : ''}`} type='submit' onClick={onSubmit}>Загрузить файлы на Я.Диск</button>
+      }
+      {props.isUploadSuccess && <p className='uploader__success-text'>Файлы успешно загружены</p>}
+      {!props.isUploadSuccess &&
       <aside className='uploader__files'>
-        {acceptedFiles.length === 0
-          ?
-          ''
-          :
-          <h3 className='uploader__files-title'>Список выбранных файлов</h3>
-        }
-        <ul className='uploader__filelist'>{files}</ul>
-      </aside>
+      {acceptedFiles.length === 0
+        ?
+        ''
+        :
+        <h3 className='uploader__files-title'>Список выбранных файлов</h3>
+      }
+      <ul className='uploader__filelist'>{files}</ul>
+    </aside>
+      }
       {
         fileRejections.length === 0
           ?
