@@ -1,6 +1,20 @@
 .header {
   background-color: rgb(24, 24, 24);
   text-align: center;
-  margin: 60px;
+  margin: 60px 0;
   font-size: 30px;
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    font-size: 22px;
+  }
+}
+
+
+@media screen and (max-width: 424px) {
+  .header {
+    font-size: 18px;
+    margin: 30px 0;
+  }
 }

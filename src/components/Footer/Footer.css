@@ -8,3 +8,22 @@
   font-weight: 400;
   margin: 0 0 20px;
 }
+
+.footer__date {
+  margin: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .footer {
+    margin: 100px 0 30px;
+  }
+
+  .footer__title {
+    font-size: 14px;
+    margin: 0 0 10px;
+  }
+
+  .footer__date {
+    font-size: 14px;
+  }
+}

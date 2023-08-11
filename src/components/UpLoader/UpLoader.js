@@ -1,5 +1,4 @@
 import './Uploader.css';
-import React, { useMemo } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 function UpLoader(props) {
@@ -30,20 +29,18 @@ function UpLoader(props) {
     });
 
     props.upload(data);
-
   }
 
   return (
     <section className='uploader'>
       <div {...getRootProps({
-        className: `dropzone
-
-      ${isDragAccept ? 'dropzone_acceptStyle' : ''}
-      ${isDragReject ? 'dropzone_rejectStyle' : ''}`
+        className: `uploader__dropzone
+      ${isDragAccept ? 'uploader__dropzone_acceptStyle' : ''}
+      ${isDragReject ? 'uploader__dropzone_rejectStyle' : ''}`
       })}>
         <input {...getInputProps()} />
-        <h2 className='uploader__title'>Перетащите файлы в эту область или нажмите, чтобы выбрать их</h2>
-        <em className='uploader__rule'>(Максимальное количество файлов - 100)</em>
+        <h2 className='uploader__dropzone-title'>Перетащите файлы в эту область или нажмите, чтобы выбрать их</h2>
+        <em className='uploader__dropzone-rule'>(Максимальное количество файлов - 100)</em>
       </div>
       <button className={`uploader__button ${acceptedFiles.length !== 0 ? '' : 'uploader__button_disabled'}`} type='submit' onClick={onDrop}>Загрузить файлы на Я.Диск</button>
       <aside className='uploader__files'>
