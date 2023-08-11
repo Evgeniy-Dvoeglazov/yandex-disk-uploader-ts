@@ -6,6 +6,7 @@
 .uploader__files-title {
   margin: 0 0 40px;
   letter-spacing: .1em;
+  color: #f1a12a;
 }
 
 .uploader__filelist {
@@ -17,8 +18,48 @@
 }
 
 .uploader__file {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 15px;
   font-size: 14px;
+}
+
+.uploader__file-name {
+  max-width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0 20px 0 0;
+}
+
+.uploader__file-size {
+  min-width: 80px;
+  text-align: right;
+  margin: 0;
+}
+
+.uploader__button {
+  display: block;
+  margin: 50px auto;
+  background-color: transparent;
+  border: 3px solid #fff;
+  border-radius: 10px;
+  padding: 40px;
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+  transition: box-shadow .1s linear;
+  opacity: .7;
+}
+
+.uploader__button:hover {
+  box-shadow: 0 0 20px #888888;
+  opacity: 1;
+}
+
+.uploader__button_disabled {
+  pointer-events: none;
+  opacity: .2;
 }
 
 .uploader__error {
@@ -44,11 +85,11 @@
     outline: none;
     transition: border .24s ease-in-out;
     cursor: pointer;
-    transition: opacity .5s linear;
+    transition: opacity .2s linear;
 }
 
 .dropzone:hover {
-  opacity: 8;
+  opacity: 1;
 }
 
 .dropzone_acceptStyle {

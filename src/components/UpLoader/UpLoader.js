@@ -4,35 +4,6 @@ import { useDropzone } from 'react-dropzone';
 
 function UpLoader(props) {
 
-  const baseStyle = {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '40px',
-    margin: '0 40px',
-    borderWidth: 2,
-    borderRadius: 2,
-    borderColor: '#eeeeee',
-    borderStyle: 'dashed',
-    backgroundColor: '#fafafa',
-    color: '#bdbdbd',
-    outline: 'none',
-    transition: 'border .24s ease-in-out'
-  };
-
-  const focusedStyle = {
-    borderColor: '#2196f3'
-  };
-
-  const acceptStyle = {
-    borderColor: '#00e676'
-  };
-
-  const rejectStyle = {
-    borderColor: '#ff1744'
-  };
-
   const {
     acceptedFiles,
     fileRejections,
@@ -46,7 +17,8 @@ function UpLoader(props) {
 
   const files = acceptedFiles.map(file => (
     <li className='uploader__file' key={file.path}>
-      {file.path} - {(file.size / 1000000).toFixed(1)} Мб
+      <p className='uploader__file-name'>{file.path}</p>
+      <p className='uploader__file-size'>{(file.size / 1000000).toFixed(1)} Мб</p>
     </li>
   ));
 
@@ -73,9 +45,14 @@ function UpLoader(props) {
         <h2 className='uploader__title'>Перетащите файлы в эту область или нажмите, чтобы выбрать их</h2>
         <em className='uploader__rule'>(Максимальное количество файлов - 100)</em>
       </div>
-      <button className='uploader__button' onClick={onDrop}>Button</button>
+      <button className={`uploader__button ${acceptedFiles.length !== 0 ? '' : 'uploader__button_disabled'}`} type='submit' onClick={onDrop}>Загрузить файлы на Я.Диск</button>
       <aside className='uploader__files'>
-        <h3 className='uploader__files-title'>Список выбранных файлов</h3>
+        {acceptedFiles.length === 0
+          ?
+          ''
+          :
+          <h3 className='uploader__files-title'>Список выбранных файлов</h3>
+        }
         <ul className='uploader__filelist'>{files}</ul>
       </aside>
       {

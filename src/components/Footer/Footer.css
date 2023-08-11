@@ -1,0 +1,10 @@
+.footer {
+  text-align: center;
+  margin: 200px 0 30px;
+}
+
+.footer__title {
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0 0 20px;
+}

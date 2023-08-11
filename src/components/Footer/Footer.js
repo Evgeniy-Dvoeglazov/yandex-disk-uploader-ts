@@ -2,9 +2,9 @@ import './Footer.css';
 
 function Footer() {
   return (
-    <footer>
-      <h2>Двоеглазов Евгений</h2>
-      <p>&copy; {new Date().getFullYear()}</p>
+    <footer className='footer'>
+      <h2 className='footer__title'>Двоеглазов Евгений</h2>
+      <p className='footer__date'>&copy; {new Date().getFullYear()}</p>
     </footer>
   )
 }
