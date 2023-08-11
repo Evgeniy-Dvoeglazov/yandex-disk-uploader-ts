@@ -1,15 +1,36 @@
 import './App.css';
 import Header from '../Header/Header';
-import UpLoader from '../UpLoader/UpLoader';
+import Uploader from '../Uploader/Uploader';
 import Footer from '../Footer/Footer';
-
-// y0_AgAAAABrGBkdAApJ8AAAAADpXiHzk7i9P-UcQw2xUUs7_f33Py02pN4
+import { apiDisk } from '../../utils/DiskApi';
 
 function App() {
+
+  function upload(data) {
+    const uploadfile = data.getAll('files');
+    uploadfile.forEach((file) => {
+      apiDisk.getUrl(file)
+        .then((res) => {
+          apiDisk.uploadFiles(res.href, file)
+            .then(() => {
+              console.log(file);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+  }
+
   return (
-    <div className="App">
+    <div className='app'>
       <Header />
-      <UpLoader />
+      <Uploader
+        upload={upload}
+      />
       <Footer />
     </div>
   );

@@ -2,8 +2,8 @@ import './Header.css';
 
 function Header() {
   return (
-    <header>
-      <h1>Yandex Disk UpLoader</h1>
+    <header className='header'>
+      <h1 className='header__title'>Yandex Disk Uploader</h1>
     </header>
   )
 }

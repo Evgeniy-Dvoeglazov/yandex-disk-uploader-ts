@@ -1,12 +1,67 @@
-.upLoader {
-  height: 300px;
+.uploader__files {
+  text-align: center;
+  margin: 60px 0 40px;
 }
 
-.upLoader__label {
-  display: block;
-  padding: 100px 0;
+.uploader__files-title {
+  margin: 0 0 40px;
+  letter-spacing: .1em;
 }
 
-.upLoader__input {
-  /* display: none; */
+.uploader__filelist {
+  list-style: none;
+  max-width: 600px;
+  text-align: left;
+  margin: 0 auto;
+  padding: 0;
 }
+
+.uploader__file {
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.uploader__error {
+  text-align: center;
+  color:#e2484f
+}
+
+
+.dropzone {
+    display: flex;
+    max-width: 1000px;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    margin: 0 auto;
+    border-width: 2;
+    border-radius: 2;
+    border-color: #eeeeee;
+    border-style: dashed;
+    background-color: rgb(24, 24, 24);
+    color: #bdbdbd;
+    opacity: .4;
+    outline: none;
+    transition: border .24s ease-in-out;
+    cursor: pointer;
+    transition: opacity .5s linear;
+}
+
+.dropzone:hover {
+  opacity: 8;
+}
+
+.dropzone_acceptStyle {
+  opacity: 1;
+  background-color: #3b9458;
+  color: #fff;
+  border-color: #fff;
+}
+
+.dropzone_rejectStyle {
+  opacity: 1;
+  background-color: #943b3f;
+  color: #fff;
+  border-color: #fff;
+}
+
