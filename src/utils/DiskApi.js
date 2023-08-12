@@ -1,5 +1,5 @@
 const apiConfig = {
-  baseUrl: 'https://cloud-api.yandex.net/v1'
+  baseUrl: 'https://cloud-api.yandex.net/v1/disk/resources/upload'
 }
 
 class DiskApi {
@@ -8,18 +8,17 @@ class DiskApi {
   }
 
   _checkResponse(res) {
-    console.log(res);
     if (res.ok) {
       return res.json();
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getUrl(file) {
-    return fetch(`${this._url}/disk/resources/upload?path=${file.name}&overwrite=true`, {
+  getUrl(file, data) {
+    return fetch(`${this._url}?path=${file.name}&overwrite=true`, {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'OAuth y0_AgAAAABrGBkdAApJ9QAAAADpXos-LxSBIU4QQiyaWVXhq15HGTaiWI8'
+        'Authorization': `OAuth ${data.access_token}`
       }
     })
       .then((res) => {

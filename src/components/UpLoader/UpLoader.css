@@ -74,10 +74,7 @@
     align-items: center;
     padding: 40px;
     margin: 0 auto;
-    border-width: 2;
-    border-radius: 2;
-    border-color: #eeeeee;
-    border-style: dashed;
+    border: 2px dashed #eeeeee;
     background-color: rgb(24, 24, 24);
     color: #bdbdbd;
     opacity: .4;

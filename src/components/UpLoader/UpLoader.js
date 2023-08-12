@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import preloader from '../../images/preloader.gif'
 import { useEffect } from 'react';
 
-function UpLoader(props) {
+function Uploader(props) {
 
   const {
     acceptedFiles,
@@ -13,7 +13,7 @@ function UpLoader(props) {
     isDragAccept,
     isDragReject,
   } = useDropzone({
-    maxFiles: 2
+    maxFiles: 100
   });
 
   const files = acceptedFiles.map(file => (
@@ -25,7 +25,7 @@ function UpLoader(props) {
 
   useEffect(() => {
     if (props.isUploadSuccess && acceptedFiles.length === 0) {
-      props.deleteSuccessInfo();
+      props.deleteUploadInfo();
     }
   }, [acceptedFiles.length])
 
@@ -57,6 +57,7 @@ function UpLoader(props) {
         <button className={`uploader__button ${acceptedFiles.length !== 0 ? '' : 'uploader__button_disabled'} ${props.isUploadSuccess ? 'uploader__button_disabled' : ''}`} type='submit' onClick={onSubmit}>Загрузить файлы на Я.Диск</button>
       }
       {props.isUploadSuccess && <p className='uploader__success-text'>Файлы успешно загружены</p>}
+      {props.isServerError && <p className='uploader__error'>Файлы успешно загружены</p>}
       {!props.isUploadSuccess &&
       <aside className='uploader__files'>
       {acceptedFiles.length === 0
@@ -79,4 +80,4 @@ function UpLoader(props) {
   );
 }
 
-export default UpLoader;
+export default Uploader;
