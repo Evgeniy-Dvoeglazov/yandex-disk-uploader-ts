@@ -1,9 +1,12 @@
 import './App.css';
 import Header from '../Header/Header';
-import Uploader from '../Uploader/Uploader';
+import UpLoader from '../UpLoader/UpLoader'
 import Footer from '../Footer/Footer';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
+import EmptyPage from '../EmptyPage/EmptyPage';
 import { apiDisk } from '../../utils/DiskApi';
 import { useState } from 'react';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
 
@@ -11,12 +14,7 @@ function App() {
   const [isUploadSuccess, setIsUploadSuccess] = useState(false);
   const [isServerError, setIsServerError] = useState(false);
 
-  window.YaSendSuggestToken(
-    'https://evgeniy-dvoeglazov.github.io/yandex_disk_uploader/',
-    {
-      'kek': true
-    }
-  )
+
 
   function upload(data) {
     setIsLoading(true);
@@ -26,9 +24,9 @@ function App() {
         {
           client_id: '7f347035f6f1453e910bd1e138b3e6f9',
           response_type: 'token',
-          redirect_uri: 'https://evgeniy-dvoeglazov.github.io/yandex_disk_uploader/'
+          redirect_uri: 'https://evgeniy-dvoeglazov.github.io/yandex_disk_uploader/empty-page'
         },
-        'https://evgeniy-dvoeglazov.github.io/yandex_disk_uploader/'
+        'https://evgeniy-dvoeglazov.github.io/yandex_disk_uploader'
       )
         .then(({
           handler
@@ -64,17 +62,32 @@ function App() {
   }
 
   return (
+    <HashRouter>
     <div className='app'>
-      <Header />
-      <Uploader
-        upload={upload}
-        isLoading={isLoading}
-        isUploadSuccess={isUploadSuccess}
-        deleteUploadInfo={deleteUploadInfo}
-        isServerError={isServerError}
-      />
-      <Footer />
+      <Routes>
+        <Route path='/' element={
+          <>
+            <Header />
+            <UpLoader
+              upload={upload}
+              isLoading={isLoading}
+              isUploadSuccess={isUploadSuccess}
+              deleteUploadInfo={deleteUploadInfo}
+              isServerError={isServerError}
+            />
+            <Footer />
+          </>
+        } />
+        <Route path='/empty-page' element={
+          <EmptyPage />
+        } />
+        <Route path='*' element={
+          <NotFoundPage />
+        } />
+      </Routes>
+
     </div>
+    </HashRouter>
   );
 }
 

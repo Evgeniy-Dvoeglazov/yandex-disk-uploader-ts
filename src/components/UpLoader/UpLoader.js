@@ -1,9 +1,9 @@
-import './Uploader.css';
+import './UpLoader.css';
 import { useDropzone } from 'react-dropzone';
 import preloader from '../../images/preloader.gif'
 import { useEffect } from 'react';
 
-function Uploader(props) {
+function UpLoader(props) {
 
   const {
     acceptedFiles,
@@ -80,4 +80,4 @@ function Uploader(props) {
   );
 }
 
-export default Uploader;
+export default UpLoader;
