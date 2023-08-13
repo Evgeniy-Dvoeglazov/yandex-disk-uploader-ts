@@ -65,7 +65,7 @@ function App() {
         .then(tokenData => {
           console.log('Сообщение с токеном', tokenData);
           uploadFiles(data, tokenData);
-          setDataToken({tokenData});
+          setDataToken(tokenData);
           setIsAuth(true);
         })
         .catch(error => console.log('Обработка ошибки', error));
