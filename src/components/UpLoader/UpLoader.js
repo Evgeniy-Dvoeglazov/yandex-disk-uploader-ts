@@ -57,7 +57,7 @@ function UpLoader(props) {
         <button className={`uploader__button ${acceptedFiles.length !== 0 ? '' : 'uploader__button_disabled'} ${props.isUploadSuccess ? 'uploader__button_disabled' : ''}`} type='submit' onClick={onSubmit}>Загрузить файлы на Я.Диск</button>
       }
       {props.isUploadSuccess && <p className='uploader__success-text'>Файлы успешно загружены</p>}
-      {props.isServerError && <p className='uploader__error'>Файлы успешно загружены</p>}
+      {props.isServerError && <p className='uploader__error'>Что-то пошло не так</p>}
       {!props.isUploadSuccess &&
       <aside className='uploader__files'>
       {acceptedFiles.length === 0

@@ -31,10 +31,11 @@ function App() {
           handler
         }) => handler())
         .then(data => {
-          console.log('Сообщение с токеном', data)
+          console.log('Сообщение с токеном', data);
+          setIsAuth(true)
             .catch(error => console.log('Обработка ошибки', error))
         });
-      uploadfile.forEach((file) => {
+        isAuth && uploadfile.forEach((file) => {
 
         setIsLoading(true);
         apiDisk.getUrl(file, data)
