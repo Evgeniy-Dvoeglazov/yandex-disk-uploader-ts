@@ -35,31 +35,31 @@ function App() {
           setIsAuth(true);
         })
         .catch(error => console.log('Обработка ошибки', error));
-
-        isAuth && uploadfile.forEach((file) => {
-
-        setIsLoading(true);
-        apiDisk.getUrl(file, data)
-          .then((res) => {
-            apiDisk.uploadFiles(res.href, file)
-              .then(() => {
-                setIsUploadSuccess(true);
-              })
-              .catch((err) => {
-                console.log(err);
-                setIsServerError(true);
-                setIsLoading(false);
-              });
-          })
-          .catch((err) => {
-            console.log(err);
-            setIsServerError(true);
-          })
-          .finally(() => {
-            setIsLoading(false);
-          });
-      })
     };
+
+    isAuth && uploadfile.forEach((file) => {
+
+      setIsLoading(true);
+      apiDisk.getUrl(file, data)
+        .then((res) => {
+          apiDisk.uploadFiles(res.href, file)
+            .then(() => {
+              setIsUploadSuccess(true);
+            })
+            .catch((err) => {
+              console.log(err);
+              setIsServerError(true);
+              setIsLoading(false);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsServerError(true);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    })
   }
 
   function deleteUploadInfo() {
