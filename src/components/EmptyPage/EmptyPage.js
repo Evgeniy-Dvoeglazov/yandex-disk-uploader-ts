@@ -1,7 +1,7 @@
 function EmptyPage() {
 
   window.YaSendSuggestToken(
-    'https://yandex-disk-uploader.vercel.app/empty-page',
+    'https://yandex-disk-uploader.vercel.app',
     {
       'kek': true
     }

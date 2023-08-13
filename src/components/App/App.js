@@ -26,7 +26,7 @@ function App() {
           response_type: 'token',
           redirect_uri: 'https://yandex-disk-uploader.vercel.app/empty-page'
         },
-        'https://yandex-disk-uploader.vercel.app/'
+        'https://yandex-disk-uploader.vercel.app'
       )
         .then(({
           handler
