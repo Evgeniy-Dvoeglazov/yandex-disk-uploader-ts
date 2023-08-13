@@ -15,8 +15,37 @@ function App() {
   const [isServerError, setIsServerError] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
 
-  function upload(data) {
+  function uploadFiles(data) {
+
     const uploadfile = data.getAll('files');
+
+    uploadfile.forEach((file) => {
+
+      setIsLoading(true);
+      apiDisk.getUrl(file, data)
+        .then((res) => {
+          apiDisk.uploadFiles(res.href, file)
+            .then(() => {
+              setIsUploadSuccess(true);
+            })
+            .catch((err) => {
+              console.log(err);
+              setIsServerError(true);
+              setIsLoading(false);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsServerError(true);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    })
+  }
+
+  function upload(data) {
+
     setIsLoading(true);
     if (!isAuth) {
       window.YaAuthSuggest.init(
@@ -32,35 +61,13 @@ function App() {
         }) => handler())
         .then(data => {
           console.log('Сообщение с токеном', data);
+          uploadFiles(data);
           setIsAuth(true);
         })
         .catch(error => console.log('Обработка ошибки', error));
-    };
-    console.log(isAuth);
-    if (isAuth) {
-      uploadfile.forEach((file) => {
-
-        setIsLoading(true);
-        apiDisk.getUrl(file, data)
-          .then((res) => {
-            apiDisk.uploadFiles(res.href, file)
-              .then(() => {
-                setIsUploadSuccess(true);
-              })
-              .catch((err) => {
-                console.log(err);
-                setIsServerError(true);
-                setIsLoading(false);
-              });
-          })
-          .catch((err) => {
-            console.log(err);
-            setIsServerError(true);
-          })
-          .finally(() => {
-            setIsLoading(false);
-          });
-      })
+    }
+    else {
+      uploadFiles(data);
     }
   }
 
