@@ -32,9 +32,10 @@ function App() {
         }) => handler())
         .then(data => {
           console.log('Сообщение с токеном', data);
-          setIsAuth(true)
-            .catch(error => console.log('Обработка ошибки', error))
-        });
+          setIsAuth(true);
+        })
+        .catch(error => console.log('Обработка ошибки', error));
+
         isAuth && uploadfile.forEach((file) => {
 
         setIsLoading(true);
