@@ -78,6 +78,7 @@ function App() {
   function deleteUploadInfo() {
     setIsUploadSuccess(false);
     setIsServerError(false);
+    setIsAuthError(false);
   }
 
   return (

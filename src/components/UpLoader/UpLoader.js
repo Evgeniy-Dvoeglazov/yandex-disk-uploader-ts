@@ -24,7 +24,7 @@ function UpLoader(props) {
   ));
 
   useEffect(() => {
-    if (props.isUploadSuccess && acceptedFiles.length === 0) {
+    if ((props.isServerError || props.isUploadSuccess || props.isAuthErro) && acceptedFiles.length === 0) {
       props.deleteUploadInfo();
     }
   }, [acceptedFiles.length])
