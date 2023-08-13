@@ -6,7 +6,7 @@ import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import EmptyPage from '../EmptyPage/EmptyPage';
 import { apiDisk } from '../../utils/DiskApi';
 import { useState } from 'react';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
 
@@ -62,7 +62,6 @@ function App() {
   }
 
   return (
-    <HashRouter>
     <div className='app'>
       <Routes>
         <Route path='/' element={
@@ -82,9 +81,7 @@ function App() {
           <EmptyPage />
         } />
       </Routes>
-
     </div>
-    </HashRouter>
   );
 }
 
