@@ -1,7 +1,7 @@
 function EmptyPage() {
 
   window.YaSendSuggestToken(
-    'https://evgeniy-dvoeglazov.github.io/yandex_disk_uploader/',
+    'https://yandex-disk-uploader.vercel.app/empty-page',
     {
       'kek': true
     }
