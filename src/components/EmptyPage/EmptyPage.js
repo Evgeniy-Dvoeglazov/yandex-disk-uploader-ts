@@ -7,7 +7,10 @@ function EmptyPage() {
     }
   )
   return (
-    <div></div>
+    <>
+    <h1>ddddd</h1>
+    <div>ddd</div>
+    </>
   )
 }
 
