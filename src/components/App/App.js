@@ -32,6 +32,8 @@ function App() {
             .catch((err) => {
               console.log(err);
               setIsServerError(true);
+            })
+            .finally(() => {
               setIsLoading(false);
             });
         })
@@ -69,6 +71,7 @@ function App() {
         .catch(error => console.log('Обработка ошибки', error));
     }
     else {
+      console.log(dataToken);
       uploadFiles(data, dataToken);
     }
   }
