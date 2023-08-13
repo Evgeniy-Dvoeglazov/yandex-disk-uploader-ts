@@ -36,30 +36,32 @@ function App() {
         })
         .catch(error => console.log('Обработка ошибки', error));
     };
+    console.log(isAuth);
+    if (isAuth) {
+      uploadfile.forEach((file) => {
 
-    isAuth && uploadfile.forEach((file) => {
-
-      setIsLoading(true);
-      apiDisk.getUrl(file, data)
-        .then((res) => {
-          apiDisk.uploadFiles(res.href, file)
-            .then(() => {
-              setIsUploadSuccess(true);
-            })
-            .catch((err) => {
-              console.log(err);
-              setIsServerError(true);
-              setIsLoading(false);
-            });
-        })
-        .catch((err) => {
-          console.log(err);
-          setIsServerError(true);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    })
+        setIsLoading(true);
+        apiDisk.getUrl(file, data)
+          .then((res) => {
+            apiDisk.uploadFiles(res.href, file)
+              .then(() => {
+                setIsUploadSuccess(true);
+              })
+              .catch((err) => {
+                console.log(err);
+                setIsServerError(true);
+                setIsLoading(false);
+              });
+          })
+          .catch((err) => {
+            console.log(err);
+            setIsServerError(true);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+      })
+    }
   }
 
   function deleteUploadInfo() {
