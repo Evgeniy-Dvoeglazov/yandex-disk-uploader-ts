@@ -14,8 +14,6 @@ function App() {
   const [isUploadSuccess, setIsUploadSuccess] = useState(false);
   const [isServerError, setIsServerError] = useState(false);
 
-
-
   function upload(data) {
     setIsLoading(true);
     const uploadfile = data.getAll('files');
@@ -79,6 +77,9 @@ function App() {
         } />
         <Route path='/empty-page' element={
           <EmptyPage />
+        } />
+        <Route path='*' element={
+          <NotFoundPage />
         } />
       </Routes>
     </div>
