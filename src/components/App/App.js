@@ -14,15 +14,16 @@ function App() {
   const [isUploadSuccess, setIsUploadSuccess] = useState(false);
   const [isServerError, setIsServerError] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
+  const [dataToken, setDataToken] = useState({});
 
-  function uploadFiles(data) {
+  function uploadFiles(data, tokenData) {
 
     const uploadfile = data.getAll('files');
 
     uploadfile.forEach((file) => {
 
       setIsLoading(true);
-      apiDisk.getUrl(file, data)
+      apiDisk.getUrl(file, tokenData)
         .then((res) => {
           apiDisk.uploadFiles(res.href, file)
             .then(() => {
@@ -61,13 +62,14 @@ function App() {
         }) => handler())
         .then(tokenData => {
           console.log('Сообщение с токеном', tokenData);
-          uploadFiles(data);
+          uploadFiles(data, tokenData);
+          setDataToken({tokenData});
           setIsAuth(true);
         })
         .catch(error => console.log('Обработка ошибки', error));
     }
     else {
-      uploadFiles(data);
+      uploadFiles(data, dataToken);
     }
   }
 
