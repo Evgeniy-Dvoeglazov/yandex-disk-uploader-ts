@@ -13,11 +13,12 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isUploadSuccess, setIsUploadSuccess] = useState(false);
   const [isServerError, setIsServerError] = useState(false);
+  const [isAuth, setIsAuth] = useState(false);
 
   function upload(data) {
-    setIsLoading(true);
     const uploadfile = data.getAll('files');
-    uploadfile.forEach((file) => {
+    setIsLoading(true);
+    if (!isAuth) {
       window.YaAuthSuggest.init(
         {
           client_id: '7f347035f6f1453e910bd1e138b3e6f9',
@@ -30,28 +31,33 @@ function App() {
           handler
         }) => handler())
         .then(data => {
-          console.log('Сообщение с токеном', data);
-          apiDisk.getUrl(file, data)
-            .then((res) => {
-              apiDisk.uploadFiles(res.href, file)
-                .then(() => {
-                  setIsUploadSuccess(true);
-                })
-                .catch((err) => {
-                  console.log(err);
-                  setIsServerError(true);
-                });
-            })
-            .catch((err) => {
-              console.log(err);
-              setIsServerError(true);
-            });
-        })
-        .catch(error => console.log('Обработка ошибки', error))
-        .finally(() => {
-          setIsLoading(false);
+          console.log('Сообщение с токеном', data)
+            .catch(error => console.log('Обработка ошибки', error))
         });
-    })
+      uploadfile.forEach((file) => {
+
+        setIsLoading(true);
+        apiDisk.getUrl(file, data)
+          .then((res) => {
+            apiDisk.uploadFiles(res.href, file)
+              .then(() => {
+                setIsUploadSuccess(true);
+              })
+              .catch((err) => {
+                console.log(err);
+                setIsServerError(true);
+                setIsLoading(false);
+              });
+          })
+          .catch((err) => {
+            console.log(err);
+            setIsServerError(true);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+      })
+    };
   }
 
   function deleteUploadInfo() {
