@@ -59,8 +59,8 @@ function App() {
         .then(({
           handler
         }) => handler())
-        .then(data => {
-          console.log('Сообщение с токеном', data);
+        .then(tokenData => {
+          console.log('Сообщение с токеном', tokenData);
           uploadFiles(data);
           setIsAuth(true);
         })
