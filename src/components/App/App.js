@@ -81,9 +81,6 @@ function App() {
         <Route path='/empty-page' element={
           <EmptyPage />
         } />
-        <Route path='*' element={
-          <NotFoundPage />
-        } />
       </Routes>
 
     </div>
