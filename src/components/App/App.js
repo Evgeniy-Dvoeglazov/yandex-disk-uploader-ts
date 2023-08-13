@@ -24,9 +24,9 @@ function App() {
         {
           client_id: '7f347035f6f1453e910bd1e138b3e6f9',
           response_type: 'token',
-          redirect_uri: 'https://evgeniy-dvoeglazov.github.io/yandex_disk_uploader/empty-page'
+          redirect_uri: 'https://yandex-disk-uploader.vercel.app/empty-page'
         },
-        'https://evgeniy-dvoeglazov.github.io/yandex_disk_uploader'
+        'https://yandex-disk-uploader.vercel.app/'
       )
         .then(({
           handler
