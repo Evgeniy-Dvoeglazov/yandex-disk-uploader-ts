@@ -14,7 +14,8 @@ function App() {
   const [isUploadSuccess, setIsUploadSuccess] = useState(false);
   const [isServerError, setIsServerError] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
-  const [dataToken, setDataToken] = useState({});
+  const [tokenInfo, setTokenInfo] = useState({});
+  const [isAuthError, setIsAuthError] = useState(false);
 
   function uploadFiles(data, tokenData) {
 
@@ -25,6 +26,7 @@ function App() {
       setIsLoading(true);
       apiDisk.getUrl(file, tokenData)
         .then((res) => {
+          setIsLoading(true);
           apiDisk.uploadFiles(res.href, file)
             .then(() => {
               setIsUploadSuccess(true);
@@ -65,14 +67,16 @@ function App() {
         .then(tokenData => {
           console.log('Сообщение с токеном', tokenData);
           uploadFiles(data, tokenData);
-          setDataToken(tokenData);
+          setTokenInfo(tokenData);
           setIsAuth(true);
         })
-        .catch(error => console.log('Обработка ошибки', error));
+        .catch(error => {
+          console.log('Обработка ошибки', error);
+          setIsAuthError(true);
+        })
     }
     else {
-      console.log(dataToken);
-      uploadFiles(data, dataToken);
+      uploadFiles(data, tokenInfo);
     }
   }
 
@@ -93,6 +97,7 @@ function App() {
               isUploadSuccess={isUploadSuccess}
               deleteUploadInfo={deleteUploadInfo}
               isServerError={isServerError}
+              isAuthError={isAuthError}
             />
             <Footer />
           </>

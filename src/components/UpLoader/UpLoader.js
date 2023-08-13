@@ -19,7 +19,7 @@ function UpLoader(props) {
   const files = acceptedFiles.map(file => (
     <li className='uploader__file' key={file.path}>
       <p className='uploader__file-name'>{file.path}</p>
-      <p className='uploader__file-size'>{(file.size / 1000000).toFixed(1)} Мб</p>
+      <p className='uploader__file-size'>{(file.size / 1000000).toFixed(3)} Мб</p>
     </li>
   ));
 
@@ -58,16 +58,17 @@ function UpLoader(props) {
       }
       {props.isUploadSuccess && <p className='uploader__success-text'>Файлы успешно загружены</p>}
       {props.isServerError && <p className='uploader__error'>Что-то пошло не так</p>}
+      {props.isAuthError && <p className='uploader__error'>Ошибка авторизации</p>}
       {!props.isUploadSuccess &&
-      <aside className='uploader__files'>
-      {acceptedFiles.length === 0
-        ?
-        ''
-        :
-        <h3 className='uploader__files-title'>Список выбранных файлов</h3>
-      }
-      <ul className='uploader__filelist'>{files}</ul>
-    </aside>
+        <aside className='uploader__files'>
+          {acceptedFiles.length === 0
+            ?
+            ''
+            :
+            <h3 className='uploader__files-title'>Список выбранных файлов</h3>
+          }
+          <ul className='uploader__filelist'>{files}</ul>
+        </aside>
       }
       {
         fileRejections.length === 0
