@@ -141,10 +141,6 @@
     margin: 40px auto 0;
     padding: 20px;
     font-size: 14px;
-    color: #fff;
-    cursor: pointer;
-    transition: box-shadow .1s linear;
-    opacity: .7;
   }
 
   .uploader__files {

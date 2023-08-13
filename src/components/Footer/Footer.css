@@ -14,9 +14,6 @@
 }
 
 @media screen and (max-width: 767px) {
-  .footer {
-    margin: 100px 0 30px;
-  }
 
   .footer__title {
     font-size: 14px;
