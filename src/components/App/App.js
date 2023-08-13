@@ -22,8 +22,6 @@ function App() {
     const uploadfile = data.getAll('files');
 
     uploadfile.forEach((file) => {
-
-      setIsLoading(true);
       apiDisk.getUrl(file, tokenData)
         .then((res) => {
           setIsLoading(true);
@@ -43,9 +41,6 @@ function App() {
           console.log(err);
           setIsServerError(true);
         })
-        .finally(() => {
-          setIsLoading(false);
-        });
     })
   }
 
