@@ -41,6 +41,7 @@ function App() {
         .catch((err) => {
           console.log(err);
           setIsServerError(true);
+          setIsLoading(false);
         })
     })
   }
@@ -69,8 +70,6 @@ function App() {
         .catch(error => {
           console.log('Обработка ошибки', error);
           setIsAuthError(true);
-        })
-        .finally(() => {
           setIsLoading(false);
         });
     }
