@@ -68,6 +68,7 @@ function UpLoader(props) {
       data.append('files', file);
     });
     props.upload(data);
+    setSelectedFiles([]);
   }
 
   function deleteFile(file) {

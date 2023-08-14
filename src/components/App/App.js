@@ -25,6 +25,7 @@ function App() {
       setIsLoading(true);
       apiDisk.getUrl(file, tokenData)
         .then((res) => {
+          setIsLoading(true);
           apiDisk.uploadFiles(res.href, file)
             .then(() => {
               setIsUploadSuccess(true);
