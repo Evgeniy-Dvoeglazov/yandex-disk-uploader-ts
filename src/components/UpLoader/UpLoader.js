@@ -57,14 +57,6 @@ function UpLoader(props) {
     }
   }, [selectedFiles.length])
 
-  // useEffect(() => {
-  //   if (!props.isAuthError) {
-  //     console.log(props.isAuthError);
-  //     setSelectedFiles([]);
-  //     props.deleteAuthError();
-  //   }
-  // }, [props.isAuthError])
-
   useEffect(() => {
     if (props.isUploadSuccess) {
       setSelectedFiles([]);
