@@ -58,6 +58,7 @@ function UpLoader(props) {
   }, [selectedFiles.length])
 
   useEffect(() => {
+    console.log(props.isAuthError);
     if (!props.isAuthError) {
       setSelectedFiles([]);
     }
