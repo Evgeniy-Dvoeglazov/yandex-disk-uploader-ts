@@ -49,8 +49,6 @@ function UpLoader(props) {
     }
   }, [acceptedFiles])
 
-  console.log(isMaxFiles, selectedFiles.length);
-
   useEffect(() => {
     if (selectedFiles.length <= maxFiles || selectedFiles.length === 0) {
       setIsMaxFiles(false);
@@ -58,6 +56,12 @@ function UpLoader(props) {
       setIsMaxFiles(true);
     }
   }, [selectedFiles.length])
+
+  useEffect(() => {
+    if (!props.isAuthError) {
+      setSelectedFiles([]);
+    }
+  }, [props.isAuthError])
 
   function onSubmit() {
     props.deleteAuthError();
@@ -68,7 +72,6 @@ function UpLoader(props) {
       data.append('files', file);
     });
     props.upload(data);
-    setSelectedFiles([]);
   }
 
   function deleteFile(file) {
