@@ -58,11 +58,16 @@ function UpLoader(props) {
   }, [selectedFiles.length])
 
   useEffect(() => {
-    console.log(props.isAuthError);
     if (!props.isAuthError) {
       setSelectedFiles([]);
     }
   }, [props.isAuthError])
+
+  useEffect(() => {
+    if (props.isUploadSuccess) {
+      setSelectedFiles([]);
+    }
+  }, [props.isUploadSuccess])
 
   function onSubmit() {
     props.deleteAuthError();
