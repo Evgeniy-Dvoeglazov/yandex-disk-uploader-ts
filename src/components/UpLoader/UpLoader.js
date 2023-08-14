@@ -13,7 +13,7 @@ function UpLoader(props) {
     isDragReject,
   } = useDropzone();
 
-  const maxFiles = 2;
+  const maxFiles = 100;
 
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [isMaxFiles, setIsMaxFiles] = useState(false);
@@ -30,7 +30,7 @@ function UpLoader(props) {
           <p className='uploader__file-name'>{file.path}</p>
           <p className='uploader__file-size'>{(file.size / 1000000).toFixed(3)} Мб</p>
         </div>
-        <button className='uploader__delete-btn' type='button' aria-label='delete-btn' onClick={handleDeleteFile}></button>
+        <button className={`uploader__delete-btn ${props.isLoading ? 'uploader__delete-btn_invisible' : ''}`} type='button' aria-label='delete-btn' onClick={handleDeleteFile}></button>
       </li>
     )
   });
