@@ -22,9 +22,9 @@ function App() {
     const uploadfile = data.getAll('files');
 
     uploadfile.forEach((file) => {
+      setIsLoading(true);
       apiDisk.getUrl(file, tokenData)
         .then((res) => {
-          setIsLoading(true);
           apiDisk.uploadFiles(res.href, file)
             .then(() => {
               setIsUploadSuccess(true);
@@ -84,6 +84,10 @@ function App() {
     setIsAuthError(false);
   }
 
+  function deleteAuthError() {
+    setIsAuthError(false);
+  }
+
   return (
     <div className='app'>
       <Routes>
@@ -97,6 +101,7 @@ function App() {
               deleteUploadInfo={deleteUploadInfo}
               isServerError={isServerError}
               isAuthError={isAuthError}
+              deleteAuthError={deleteAuthError}
             />
             <Footer />
           </>

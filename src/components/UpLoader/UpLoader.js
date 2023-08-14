@@ -7,16 +7,16 @@ function UpLoader(props) {
 
   const {
     acceptedFiles,
-    fileRejections,
     getRootProps,
     getInputProps,
     isDragAccept,
     isDragReject,
-  } = useDropzone({
-    maxFiles: 100
-  });
+  } = useDropzone();
+
+  const maxFiles = 2;
 
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [isMaxFiles, setIsMaxFiles] = useState(false);
 
   const files = selectedFiles.map(file => {
 
@@ -36,13 +36,12 @@ function UpLoader(props) {
   });
 
   useEffect(() => {
-    if ((props.isServerError || props.isUploadSuccess || props.isAuthErro) && acceptedFiles.length === 0) {
+    if ((props.isServerError || props.isUploadSuccess || props.isAuthError) && acceptedFiles.length === 0) {
       props.deleteUploadInfo();
     }
   }, [acceptedFiles.length])
 
   useEffect(() => {
-    console.log(acceptedFiles);
     if (acceptedFiles.length !== 0) {
       setSelectedFiles((currentFiles) => currentFiles.concat([...acceptedFiles]).filter((value, index, self) =>
         index === self.findIndex((t) => (
@@ -50,14 +49,24 @@ function UpLoader(props) {
     }
   }, [acceptedFiles])
 
-  console.log(selectedFiles);
+  console.log(isMaxFiles, selectedFiles.length);
+
+  useEffect(() => {
+    if (selectedFiles.length <= maxFiles || selectedFiles.length === 0) {
+      setIsMaxFiles(false);
+    } else {
+      setIsMaxFiles(true);
+    }
+  }, [selectedFiles.length])
 
   function onSubmit() {
+    props.deleteAuthError();
+
     const data = new FormData();
+
     selectedFiles.map((file) => {
       data.append('files', file);
     });
-
     props.upload(data);
   }
 
@@ -80,24 +89,28 @@ function UpLoader(props) {
         ?
         <img className='uploader__preloader' src={preloader} alt='иконка загрузки' />
         :
-        <button className={`uploader__button ${acceptedFiles.length !== 0 ? '' : 'uploader__button_disabled'} ${props.isUploadSuccess ? 'uploader__button_disabled' : ''}`} type='submit' onClick={onSubmit}>Загрузить файлы на Я.Диск</button>
+        <button className={
+          `uploader__button
+        ${(selectedFiles.length !== 0 && selectedFiles.length <= maxFiles && !props.isUploadSuccess) ? '' : 'uploader__button_disabled'}`
+        } type='submit' onClick={onSubmit}>Загрузить файлы на Я.Диск</button>
       }
       {props.isUploadSuccess && <p className='uploader__success-text'>Файлы успешно загружены</p>}
       {props.isServerError && <p className='uploader__error'>Что-то пошло не так</p>}
       {props.isAuthError && <p className='uploader__error'>Ошибка авторизации</p>}
       {!props.isUploadSuccess &&
         <aside className='uploader__files'>
-          {selectedFiles.length === 0
-            ?
-            ''
-            :
-            <h3 className='uploader__files-title'>Список выбранных файлов</h3>
+          {
+            selectedFiles.length === 0
+              ?
+              ''
+              :
+              <h3 className='uploader__files-title'>Список выбранных файлов</h3>
           }
           <ul className='uploader__filelist'>{files}</ul>
         </aside>
       }
       {
-        fileRejections.length === 0
+        !isMaxFiles
           ?
           ''
           :

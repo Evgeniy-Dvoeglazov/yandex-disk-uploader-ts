@@ -126,13 +126,6 @@
   border-color: #fff;
 }
 
-.uploader__dropzone_rejectStyle {
-  opacity: 1;
-  background-color: #943b3f;
-  color: #fff;
-  border-color: #fff;
-}
-
 .uploader__preloader {
   display: block;
   margin: 70px auto 0;
