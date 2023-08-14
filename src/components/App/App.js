@@ -69,6 +69,9 @@ function App() {
           console.log('Обработка ошибки', error);
           setIsAuthError(true);
         })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
     else {
       uploadFiles(data, tokenInfo);

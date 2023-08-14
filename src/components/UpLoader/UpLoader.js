@@ -1,7 +1,7 @@
 import './UpLoader.css';
 import { useDropzone } from 'react-dropzone';
 import preloader from '../../images/preloader.gif'
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 function UpLoader(props) {
 
@@ -16,12 +16,24 @@ function UpLoader(props) {
     maxFiles: 100
   });
 
-  const files = acceptedFiles.map(file => (
-    <li className='uploader__file' key={file.path}>
-      <p className='uploader__file-name'>{file.path}</p>
-      <p className='uploader__file-size'>{(file.size / 1000000).toFixed(3)} Мб</p>
-    </li>
-  ));
+  const [selectedFiles, setSelectedFiles] = useState([]);
+
+  const files = selectedFiles.map(file => {
+
+    function handleDeleteFile() {
+      deleteFile(file)
+    }
+
+    return (
+      <li className='uploader__file' key={file.path}>
+        <div className='uploader__file-info'>
+          <p className='uploader__file-name'>{file.path}</p>
+          <p className='uploader__file-size'>{(file.size / 1000000).toFixed(3)} Мб</p>
+        </div>
+        <button className='uploader__delete-btn' type='button' aria-label='delete-btn' onClick={handleDeleteFile}></button>
+      </li>
+    )
+  });
 
   useEffect(() => {
     if ((props.isServerError || props.isUploadSuccess || props.isAuthErro) && acceptedFiles.length === 0) {
@@ -29,14 +41,28 @@ function UpLoader(props) {
     }
   }, [acceptedFiles.length])
 
-  function onSubmit() {
+  useEffect(() => {
+    console.log(acceptedFiles);
+    if (acceptedFiles.length !== 0) {
+      setSelectedFiles((currentFiles) => currentFiles.concat([...acceptedFiles]).filter((value, index, self) =>
+        index === self.findIndex((t) => (
+          t.path === value.path))))
+    }
+  }, [acceptedFiles])
 
+  console.log(selectedFiles);
+
+  function onSubmit() {
     const data = new FormData();
-    acceptedFiles.map((file) => {
+    selectedFiles.map((file) => {
       data.append('files', file);
     });
 
     props.upload(data);
+  }
+
+  function deleteFile(file) {
+    setSelectedFiles((currentFiles) => currentFiles.filter((currentFile) => currentFile.path !== file.path));
   }
 
   return (
@@ -61,7 +87,7 @@ function UpLoader(props) {
       {props.isAuthError && <p className='uploader__error'>Ошибка авторизации</p>}
       {!props.isUploadSuccess &&
         <aside className='uploader__files'>
-          {acceptedFiles.length === 0
+          {selectedFiles.length === 0
             ?
             ''
             :
