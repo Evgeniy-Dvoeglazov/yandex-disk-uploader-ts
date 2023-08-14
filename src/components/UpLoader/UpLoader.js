@@ -59,7 +59,9 @@ function UpLoader(props) {
 
   useEffect(() => {
     if (!props.isAuthError) {
+      console.log(props.isAuthError);
       setSelectedFiles([]);
+      props.deleteAuthError();
     }
   }, [props.isAuthError])
 
@@ -70,8 +72,6 @@ function UpLoader(props) {
   }, [props.isUploadSuccess])
 
   function onSubmit() {
-    props.deleteAuthError();
-
     const data = new FormData();
 
     selectedFiles.map((file) => {
