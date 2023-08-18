@@ -1,3 +1,9 @@
+declare global {
+  interface Window {
+    YaSendSuggestToken:any;
+  }
+}
+
 function EmptyPage() {
 
   window.YaSendSuggestToken(

@@ -1,12 +1,19 @@
+import React from 'react';
 import './App.css';
 import Header from '../Header/Header';
-import UpLoader from '../UpLoader/UpLoader'
 import Footer from '../Footer/Footer';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
+import UpLoader from '../UpLoader/UpLoader'
 import EmptyPage from '../EmptyPage/EmptyPage';
+import { Routes, Route } from 'react-router-dom';
 import { apiDisk } from '../../utils/DiskApi';
 import { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+
+declare global {
+  interface Window {
+    YaAuthSuggest:any;
+  }
+}
 
 function App() {
 
@@ -17,11 +24,11 @@ function App() {
   const [tokenInfo, setTokenInfo] = useState({});
   const [isAuthError, setIsAuthError] = useState(false);
 
-  function uploadFiles(data, tokenData) {
+  function uploadFiles(data: any, tokenData: any) {
 
     const uploadfile = data.getAll('files');
 
-    uploadfile.forEach((file) => {
+    uploadfile.forEach((file: any) => {
       setIsLoading(true);
       apiDisk.getUrl(file, tokenData)
         .then((res) => {
@@ -46,7 +53,7 @@ function App() {
     })
   }
 
-  function upload(data) {
+  function upload(data: any) {
 
     setIsLoading(true);
     if (!isAuth) {
@@ -60,14 +67,14 @@ function App() {
       )
         .then(({
           handler
-        }) => handler())
-        .then(tokenData => {
+        } :any) => handler())
+        .then((tokenData: any) => {
           console.log('Сообщение с токеном', tokenData);
           uploadFiles(data, tokenData);
           setTokenInfo(tokenData);
           setIsAuth(true);
         })
-        .catch(error => {
+        .catch((error: any) => {
           console.log('Обработка ошибки', error);
           setIsAuthError(true);
           setIsLoading(false);

@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import preloader from '../../images/preloader.gif'
 import { useState, useEffect } from 'react';
 
-function UpLoader(props) {
+function UpLoader(props: any) {
 
   const {
     acceptedFiles,
@@ -15,10 +15,10 @@ function UpLoader(props) {
 
   const maxFiles = 100;
 
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [selectedFiles, setSelectedFiles] = useState<Array<any>>([]);
   const [isMaxFiles, setIsMaxFiles] = useState(false);
 
-  const files = selectedFiles.map(file => {
+  const files: Array<any> = selectedFiles.map(file => {
 
     function handleDeleteFile() {
       deleteFile(file)
@@ -73,7 +73,7 @@ function UpLoader(props) {
     props.upload(data);
   }
 
-  function deleteFile(file) {
+  function deleteFile(file: any) {
     setSelectedFiles((currentFiles) => currentFiles.filter((currentFile) => currentFile.path !== file.path));
   }
 
