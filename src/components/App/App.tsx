@@ -11,7 +11,7 @@ import { useState } from 'react';
 
 declare global {
   interface Window {
-    YaAuthSuggest:any;
+    YaAuthSuggest: any;
   }
 }
 
@@ -59,11 +59,11 @@ function App() {
     if (!isAuth) {
       window.YaAuthSuggest.init(
         {
-          client_id: '7f347035f6f1453e910bd1e138b3e6f9',
+          client_id: '34843ca49c544e0ca3444979bdd726dd',
           response_type: 'token',
-          redirect_uri: 'https://yandex-disk-uploader.vercel.app/empty-page'
+          redirect_uri: 'https://yandex-disk-uploader-ts.vercel.app/empty-page'
         },
-        'https://yandex-disk-uploader.vercel.app'
+        'https://yandex-disk-uploader-ts.vercel.app'
       )
         .then(({
           handler

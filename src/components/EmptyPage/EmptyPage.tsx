@@ -7,7 +7,7 @@ declare global {
 function EmptyPage() {
 
   window.YaSendSuggestToken(
-    'https://yandex-disk-uploader.vercel.app',
+    'https://yandex-disk-uploader-ts.vercel.app',
     {
       flag: true
     }
