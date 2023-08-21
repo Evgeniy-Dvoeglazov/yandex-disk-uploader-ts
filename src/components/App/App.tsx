@@ -62,7 +62,7 @@ function App() {
     if (!isAuth) {
       window.YaAuthSuggest.init(
         {
-          client_id: '34843ca49c544e0ca3444979bdd726dd',
+          client_id: 'facb906776434af78fc01e5cd8dabc53',
           response_type: 'token',
           redirect_uri: 'https://yandex-disk-uploader-ts.vercel.app/empty-page'
         },
