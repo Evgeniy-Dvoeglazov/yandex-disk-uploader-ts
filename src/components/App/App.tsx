@@ -25,13 +25,16 @@ function App() {
   const [isAuthError, setIsAuthError] = useState(false);
 
   function uploadFiles(data: any, tokenData: any) {
+    console.log(data, tokenData);
 
     const uploadfile = data.getAll('files');
 
     uploadfile.forEach((file: any) => {
+      console.log(file);
       setIsLoading(true);
       apiDisk.getUrl(file, tokenData)
         .then((res) => {
+          console.log(res);
           setIsLoading(true);
           apiDisk.uploadFiles(res.href, file)
             .then(() => {

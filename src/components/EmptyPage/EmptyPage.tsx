@@ -1,6 +1,6 @@
 declare global {
   interface Window {
-    YaSendSuggestToken:any;
+    YaSendSuggestToken: any;
   }
 }
 
