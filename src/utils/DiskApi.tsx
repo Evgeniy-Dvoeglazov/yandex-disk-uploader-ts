@@ -22,7 +22,7 @@ class DiskApi {
   }
 
   getUrl(file: any, data: any) {
-    return fetch(`${this._url}?path=eee&overwrite=true`, {
+    return fetch(`${this._url}?path=${file.name}&overwrite=true`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `OAuth ${data.access_token}`
