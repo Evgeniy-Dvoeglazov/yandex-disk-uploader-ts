@@ -15,13 +15,14 @@ class DiskApi {
 
   _checkResponse(res: any) {
     if (res.ok) {
+      console.log('rabotaet');
       return res.json();
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
   getUrl(file: any, data: any) {
-    return fetch(`${this._url}?path=${file.name}&overwrite=true`, {
+    return fetch(`${this._url}?path=eee&overwrite=true`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `OAuth ${data.access_token}`
