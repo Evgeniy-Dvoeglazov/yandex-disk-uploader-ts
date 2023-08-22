@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -17,24 +16,27 @@ declare global {
 
 function App() {
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [isUploadSuccess, setIsUploadSuccess] = useState(false);
-  const [isServerError, setIsServerError] = useState(false);
-  const [isAuth, setIsAuth] = useState(false);
-  const [tokenInfo, setTokenInfo] = useState({});
-  const [isAuthError, setIsAuthError] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isUploadSuccess, setIsUploadSuccess] = useState<boolean>(false);
+  const [isServerError, setIsServerError] = useState<boolean>(false);
+  const [isAuth, setIsAuth] = useState<boolean>(false);
+  const [tokenInfo, setTokenInfo] = useState<any | null>(null);
+  const [isAuthError, setIsAuthError] = useState<boolean>(false);
 
-  function uploadFiles(data: any, tokenData: any) {
-    console.log(data, tokenData);
+  console.log(tokenInfo)
 
-    const uploadfile = data.getAll('files');
+  function uploadFiles(data: any, tokenData: any): void {
+    console.log(data)
+    console.log(tokenData)
 
-    uploadfile.forEach((file: any) => {
-      console.log(file);
+    const uploadfile: any[] = data.getAll('files');
+
+    console.log(uploadfile)
+
+    uploadfile.forEach((file: File) => {
       setIsLoading(true);
       apiDisk.getUrl(file, tokenData)
         .then((res) => {
-          console.log(res);
           setIsLoading(true);
           apiDisk.uploadFiles(res.href, file)
             .then(() => {
@@ -56,7 +58,8 @@ function App() {
     })
   }
 
-  function upload(data: any) {
+  function upload(data: any): void {
+    console.log(data)
 
     setIsLoading(true);
     if (!isAuth) {
@@ -78,6 +81,7 @@ function App() {
           setIsAuth(true);
         })
         .catch((error: any) => {
+          console.log(error)
           console.log('Обработка ошибки', error);
           setIsAuthError(true);
           setIsLoading(false);
@@ -88,13 +92,13 @@ function App() {
     }
   }
 
-  function deleteUploadInfo() {
+  function deleteUploadInfo(): void {
     setIsUploadSuccess(false);
     setIsServerError(false);
     setIsAuthError(false);
   }
 
-  function deleteAuthError() {
+  function deleteAuthError(): void {
     setIsAuthError(false);
   }
 

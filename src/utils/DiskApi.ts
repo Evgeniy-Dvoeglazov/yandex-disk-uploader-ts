@@ -9,11 +9,12 @@ const apiConfig: ApiConfig = {
 class DiskApi {
   _url: string
 
-  constructor(options: any) {
+  constructor(options: ApiConfig) {
     this._url = options.baseUrl;
   }
 
-  _checkResponse(res: any) {
+  _checkResponse(res: any): Promise<any> {
+    console.log(res)
     if (res.ok) {
       console.log('rabotaet');
       return res.json();
@@ -21,7 +22,9 @@ class DiskApi {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getUrl(file: any, data: any) {
+  getUrl(file: any, data: any): Promise<any> {
+    console.log(file)
+    console.log(data)
     return fetch(`${this._url}?path=${file.name}&overwrite=true`, {
       headers: {
         'Content-Type': 'application/json',
@@ -33,7 +36,7 @@ class DiskApi {
       });
   }
 
-  uploadFiles(uploadUrl: string, data: any) {
+  uploadFiles(uploadUrl: string, data: any): Promise<true> {
     return fetch(uploadUrl, {
       method: 'PUT',
       headers: {
@@ -50,5 +53,5 @@ class DiskApi {
   }
 }
 
-const apiDisk = new DiskApi(apiConfig);
+const apiDisk: DiskApi = new DiskApi(apiConfig);
 export { apiDisk };

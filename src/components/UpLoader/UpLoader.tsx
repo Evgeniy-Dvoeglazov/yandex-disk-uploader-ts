@@ -3,7 +3,22 @@ import { useDropzone } from 'react-dropzone';
 import preloader from '../../images/preloader.gif'
 import { useState, useEffect } from 'react';
 
-function UpLoader(props: any) {
+interface UpLoaderProps {
+  upload: (data: any) => void
+  isLoading: boolean
+  isUploadSuccess: boolean
+  deleteUploadInfo: () => void
+  isServerError: boolean
+  isAuthError: boolean
+  deleteAuthError: () => void
+}
+
+interface File {
+  path: string
+  size: number
+}
+
+function UpLoader(props: UpLoaderProps) {
 
   const {
     acceptedFiles,
@@ -11,17 +26,23 @@ function UpLoader(props: any) {
     getInputProps,
     isDragAccept,
     isDragReject,
+  }: {
+    acceptedFiles: globalThis.File[]
+    getRootProps: any
+    getInputProps: any
+    isDragAccept: boolean
+    isDragReject: boolean
   } = useDropzone();
 
-  const maxFiles = 100;
+  const maxFiles: number = 100;
 
-  const [selectedFiles, setSelectedFiles] = useState<Array<any>>([]);
-  const [isMaxFiles, setIsMaxFiles] = useState(false);
+  const [selectedFiles, setSelectedFiles] = useState<any[]>([]);
+  const [isMaxFiles, setIsMaxFiles] = useState<boolean>(false);
 
-  const files: Array<any> = selectedFiles.map(file => {
+  const files: JSX.Element[] = selectedFiles.map((file: File) => {
 
-    function handleDeleteFile() {
-      deleteFile(file)
+    function handleDeleteFile(): void {
+      deleteFile(file);
     }
 
     return (
@@ -63,18 +84,18 @@ function UpLoader(props: any) {
     }
   }, [props.isUploadSuccess])
 
-  function onSubmit() {
+  function onSubmit(): void {
     props.deleteAuthError();
-    const data = new FormData();
+    const data: FormData = new FormData();
 
-    selectedFiles.map((file) => {
+    selectedFiles.map((file: string) => {
       data.append('files', file);
     });
     props.upload(data);
   }
 
-  function deleteFile(file: any) {
-    setSelectedFiles((currentFiles) => currentFiles.filter((currentFile) => currentFile.path !== file.path));
+  function deleteFile(file: File): void {
+    setSelectedFiles((currentFiles) => currentFiles.filter((currentFile: File) => currentFile.path !== file.path));
   }
 
   return (
