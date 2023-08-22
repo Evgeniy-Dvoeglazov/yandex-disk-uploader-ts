@@ -2,6 +2,10 @@ interface ApiConfig {
   baseUrl: string
 }
 
+interface Data {
+  access_token: string
+}
+
 const apiConfig: ApiConfig = {
   baseUrl: 'https://cloud-api.yandex.net/v1/disk/resources/upload'
 }
@@ -13,18 +17,14 @@ class DiskApi {
     this._url = options.baseUrl;
   }
 
-  _checkResponse(res: any): Promise<any> {
-    console.log(res)
+  _checkResponse(res: Response): Promise<any> {
     if (res.ok) {
-      console.log('rabotaet');
       return res.json();
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getUrl(file: any, data: any): Promise<any> {
-    console.log(file)
-    console.log(data)
+  getUrl(file: File, data: Data): Promise<any> {
     return fetch(`${this._url}?path=${file.name}&overwrite=true`, {
       headers: {
         'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ class DiskApi {
       });
   }
 
-  uploadFiles(uploadUrl: string, data: any): Promise<true> {
+  uploadFiles(uploadUrl: string, data: BodyInit): Promise<true> {
     return fetch(uploadUrl, {
       method: 'PUT',
       headers: {

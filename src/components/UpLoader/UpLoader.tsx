@@ -88,7 +88,7 @@ function UpLoader(props: UpLoaderProps) {
     props.deleteAuthError();
     const data: FormData = new FormData();
 
-    selectedFiles.map((file: string) => {
+    selectedFiles.map((file: string | Blob): void => {
       data.append('files', file);
     });
     props.upload(data);

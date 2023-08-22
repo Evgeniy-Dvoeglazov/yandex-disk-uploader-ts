@@ -23,17 +23,11 @@ function App() {
   const [tokenInfo, setTokenInfo] = useState<any | null>(null);
   const [isAuthError, setIsAuthError] = useState<boolean>(false);
 
-  console.log(tokenInfo)
+  function uploadFiles(data: FormData, tokenData: any): void {
 
-  function uploadFiles(data: any, tokenData: any): void {
-    console.log(data)
-    console.log(tokenData)
+    const uploadfile: any = data.getAll('files');
 
-    const uploadfile: any[] = data.getAll('files');
-
-    console.log(uploadfile)
-
-    uploadfile.forEach((file: File) => {
+    uploadfile.forEach((file: File): void => {
       setIsLoading(true);
       apiDisk.getUrl(file, tokenData)
         .then((res) => {
@@ -58,8 +52,7 @@ function App() {
     })
   }
 
-  function upload(data: any): void {
-    console.log(data)
+  function upload(data: FormData): void {
 
     setIsLoading(true);
     if (!isAuth) {
@@ -73,15 +66,14 @@ function App() {
       )
         .then(({
           handler
-        } :any) => handler())
+        }: any) => handler())
         .then((tokenData: any) => {
           console.log('Сообщение с токеном', tokenData);
           uploadFiles(data, tokenData);
           setTokenInfo(tokenData);
           setIsAuth(true);
         })
-        .catch((error: any) => {
-          console.log(error)
+        .catch((error: string) => {
           console.log('Обработка ошибки', error);
           setIsAuthError(true);
           setIsLoading(false);
