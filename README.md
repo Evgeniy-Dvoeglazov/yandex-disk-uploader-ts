@@ -1,4 +1,6 @@
-# Yandex.Disk uploader
+# Yandex.Disk uploader - версия на TypeScript
+
+Версия без TS - https://github.com/Evgeniy-Dvoeglazov/yandex_disk_uploader
 
 Приложение для загрузки файлов на Яндекс.Диск
 
